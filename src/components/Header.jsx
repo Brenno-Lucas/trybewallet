@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import WalletForm from './WalletForm';
 
 class Header extends Component {
   state = {
@@ -28,6 +29,7 @@ class Header extends Component {
         >
           BRL
         </p>
+        <WalletForm />
       </div>
     );
   }

@@ -7,3 +7,15 @@ export const selectEmail = (email) => ({
     email,
   },
 });
+
+export const USER_WALLET = 'USER_WALLET';
+
+export const selectWallet = (currencies, expenses, editor, idToEdit) => ({
+  type: USER_WALLET,
+  payload: {
+    currencies,
+    expenses,
+    editor,
+    idToEdit,
+  },
+});
