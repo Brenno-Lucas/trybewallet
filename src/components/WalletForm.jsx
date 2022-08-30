@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { saveCurrencies, saveExpenses } from '../redux/actions';
+import Table from './Table';
 
 class WalletForm extends Component {
   state = {
@@ -147,6 +148,7 @@ class WalletForm extends Component {
             </button>
           </label>
         </form>
+        <Table />
       </div>
     );
   }
