@@ -4,12 +4,29 @@ import PropTypes from 'prop-types';
 import WalletForm from './WalletForm';
 
 class Header extends Component {
-  state = {
-    expenseAmount: 0,
+  getCurrencieAsk = () => {
+    const { userExpenses } = this.props;
+    const currencySelected = userExpenses[userExpenses.length - 1].currency;
+    const currenciesObj = userExpenses[userExpenses.length - 1].exchangeRates;
+    const currencie = Object.values(currenciesObj)
+      .filter((item) => item.code === currencySelected)[0].ask;
+    return currencie;
+  };
+
+  saveTotalValueExpense = () => {
+    const { userExpenses } = this.props;
+    if (userExpenses.length === 0) {
+      return 0;
+    }
+    const expenseValue = Number(userExpenses[userExpenses.length - 1].value);
+    const currencieAsk = Number(this.getCurrencieAsk());
+    const totalValue = Number(expenseValue * currencieAsk).toFixed(2);
+    const value = document.getElementById('test').innerText;
+    const test = Number(value.replace('Despesa Total: ', ''));
+    return Number(totalValue + test).toFixed(2);
   };
 
   render() {
-    const { expenseAmount } = this.state;
     const { userEmail } = this.props;
     return (
       <div>
@@ -20,9 +37,10 @@ class Header extends Component {
           {`Email: ${userEmail}`}
         </p>
         <p
+          id="test"
           data-testid="total-field"
         >
-          {`Despesa Total: ${expenseAmount}`}
+          {this.saveTotalValueExpense()}
         </p>
         <p
           data-testid="header-currency-field"
@@ -35,15 +53,19 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => {
+const mapStateToProps = (state) => {
+  const { user, wallet } = state;
   const { email } = user;
+  const { expenses } = wallet;
   return {
     userEmail: email,
+    userExpenses: expenses,
   };
 };
 
 Header.propTypes = {
   userEmail: PropTypes.string.isRequired,
+  userExpenses: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
 
 export default connect(mapStateToProps)(Header);

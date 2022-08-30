@@ -8,10 +8,27 @@ export const selectEmail = (email) => ({
   },
 });
 
-export const USER_WALLET = 'USER_WALLET';
+export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
 
-export const selectWallet = (currencies, expenses, editor, idToEdit) => ({
-  type: USER_WALLET,
+export const saveCurrencies = (currencies) => ({
+  type: SAVE_CURRENCIES,
+  payload: {
+    currencies,
+  },
+});
+
+export const SAVE_EXPENSES = 'SAVE_EXPENSES';
+
+export const saveExpenses = (expenses) => ({
+  type: SAVE_EXPENSES,
+  payload: {
+    expenses,
+  },
+});
+
+/*
+export const saveExpense = (currencies, expenses, editor, idToEdit) => ({
+  type: SAVE_CURRENCIES,
   payload: {
     currencies,
     expenses,
@@ -19,3 +36,4 @@ export const selectWallet = (currencies, expenses, editor, idToEdit) => ({
     idToEdit,
   },
 });
+*/
