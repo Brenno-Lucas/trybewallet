@@ -18,12 +18,13 @@ class Header extends Component {
     if (userExpenses.length === 0) {
       return 0;
     }
-    const expenseValue = Number(userExpenses[userExpenses.length - 1].value);
-    const currencieAsk = Number(this.getCurrencieAsk());
-    const totalValue = Number(expenseValue * currencieAsk).toFixed(2);
+    const expenseValue = userExpenses[userExpenses.length - 1].value;
+    const currencieAsk = this.getCurrencieAsk();
+    const totalValue = (Number(expenseValue) * Number(currencieAsk)).toFixed(2);
     const value = document.getElementById('test').innerText;
-    const test = Number(value.replace('Despesa Total: ', ''));
-    return Number(totalValue + test).toFixed(2);
+    const prevValue = value.replace('Despesa Total: ', '');
+    console.log(typeof totalValue);
+    return (Number(totalValue) + Number(prevValue)).toFixed(2);
   };
 
   render() {
