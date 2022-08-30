@@ -23,7 +23,6 @@ class Header extends Component {
     const totalValue = (Number(expenseValue) * Number(currencieAsk)).toFixed(2);
     const value = document.getElementById('test').innerText;
     const prevValue = value.replace('Despesa Total: ', '');
-    console.log(typeof totalValue);
     return (Number(totalValue) + Number(prevValue)).toFixed(2);
   };
 
