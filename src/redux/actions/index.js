@@ -26,6 +26,15 @@ export const saveExpenses = (expenses) => ({
   },
 });
 
+export const REMOVE_EXPENSE = 'REMOVE EXPENSE';
+
+export const removeExpenses = (id) => ({
+  type: REMOVE_EXPENSE,
+  payload: {
+    id,
+  },
+});
+
 /*
 export const saveExpense = (currencies, expenses, editor, idToEdit) => ({
   type: SAVE_CURRENCIES,

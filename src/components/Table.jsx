@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { removeExpenses } from '../redux/actions';
 
 class Table extends Component {
   getCurrencieAsk = (expense) => {
@@ -23,6 +24,14 @@ class Table extends Component {
     const ask = expenseAsk;
     const expenseValue = expense.value;
     return (Number(ask) * Number(expenseValue)).toFixed(2);
+  };
+
+  removeExpense = (event) => {
+    event.preventDefault();
+    const { target } = event;
+    const { id } = target;
+    const { dispatch } = this.props;
+    dispatch(removeExpenses(Number(id)));
   };
 
   render() {
@@ -57,7 +66,16 @@ class Table extends Component {
                 <td>{Number(this.getCurrencieAsk(item)).toFixed(2)}</td>
                 <td>{this.getValue(item, this.getCurrencieAsk(item))}</td>
                 <td>Real Brasileiro</td>
-                <td>Edit/Remove</td>
+                <td>
+                  <button
+                    type="submit"
+                    data-testid="delete-btn"
+                    id={ item.id }
+                    onClick={ this.removeExpense }
+                  >
+                    Edit/Remove
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -76,6 +94,7 @@ const mapStateToProps = ({ wallet }) => {
 
 Table.propTypes = {
   pageExpenses: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(Table);

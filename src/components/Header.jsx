@@ -4,26 +4,16 @@ import PropTypes from 'prop-types';
 import WalletForm from './WalletForm';
 
 class Header extends Component {
-  getCurrencieAsk = () => {
-    const { userExpenses } = this.props;
-    const currencySelected = userExpenses[userExpenses.length - 1].currency;
-    const currenciesObj = userExpenses[userExpenses.length - 1].exchangeRates;
-    const currencie = Object.values(currenciesObj)
-      .filter((item) => item.code === currencySelected)[0].ask;
-    return currencie;
-  };
-
   saveTotalValueExpense = () => {
     const { userExpenses } = this.props;
     if (userExpenses.length === 0) {
-      return 0;
+      return '0.00';
     }
-    const expenseValue = userExpenses[userExpenses.length - 1].value;
-    const currencieAsk = this.getCurrencieAsk();
-    const totalValue = (Number(expenseValue) * Number(currencieAsk)).toFixed(2);
-    const value = document.getElementById('test').innerText;
-    const prevValue = value.replace('Despesa Total: ', '');
-    return (Number(totalValue) + Number(prevValue)).toFixed(2);
+    const initialValue = 0;
+    const expenseValue = userExpenses
+      .reduce((acc, { value, currency, exchangeRates }) => acc
+      + Number(value) * exchangeRates[currency].ask, initialValue).toFixed(2);
+    return expenseValue;
   };
 
   render() {
