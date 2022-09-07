@@ -94,6 +94,7 @@ class WalletForm extends Component {
             Moeda:
             <select
               name="currency"
+              id="currency"
               data-testid="currency-input"
               value={ currency }
               onChange={ this.onInputChange }
